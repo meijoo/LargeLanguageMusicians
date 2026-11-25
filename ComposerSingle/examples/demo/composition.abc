@@ -1,0 +1,17 @@
+X:1
+T:Together in C
+C:ComposerSingle
+M:4/4
+L:1/16
+Q:1/4=108
+%%score (1 2)
+V:1 name="Melody" clef=treble
+V:2 name="Harmony" clef=bass
+K:C
+% Sounding pitches are explicit; intended key: C major
+V:1
+%%MIDI program 0
+"C"=C'4 =D'2 =E'2 =G'8 | "Am"=E'4 =C'2 =A2 =C'8 | "F"=A4 =C'2 =F'2 =E'8 | "G"=D'4 =B2 =G2 =B8 | "C"=C'4 =D'2 =E'2 =G'8 | "Am"=E'4 =C'2 =A2 =C'8 | "F"=A4 =C'2 =F'2 =E'8 | "G"=D'4 =B2 =G2 =B8 | "C"=C'4 =D'2 =E'2 =G'8 | "Am"=E'4 =C'2 =A2 =C'8 | "F"=A4 =C'2 =F'2 =E'8 | "G"=D'4 =B2 =G2 =B8 | "C"=C'4 =D'2 =E'2 =G'8 | "Am"=E'4 =C'2 =A2 =C'8 | "F"=A4 =C'2 =F'2 =E'8 | "C"=C'16 |]
+V:2
+%%MIDI program 0
+[=C,=E,=G,]16 | [=A,,=E,=A,]16 | [=F,,=C,=F,]16 | [=G,,=D,=G,]16 | [=C,=E,=G,]16 | [=A,,=E,=A,]16 | [=F,,=C,=F,]16 | [=G,,=D,=G,]16 | [=C,=E,=G,]16 | [=A,,=E,=A,]16 | [=F,,=C,=F,]16 | [=G,,=D,=G,]16 | [=C,=E,=G,]16 | [=A,,=E,=A,]16 | [=F,,=C,=F,]16 | [=C,=E,=G,]16 |]
