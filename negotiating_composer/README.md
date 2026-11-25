@@ -22,7 +22,16 @@ ComposerSingle draft, and the final `composition.json`, `.abc`, `.mid`, and
 `.wav`. Audio uses ComposerSingle's built-in synthesizer. Logs are checkpointed
 after every successful exchange; API failures leave partial logs rather than a
 fabricated song. Use a fresh folder for another run after any exchanges have
-been recorded. Failed attempts with no exchanges can be retried in place.
+been recorded. Failed attempts with no exchanges can be retried in place. If
+only ComposerSingle's independent draft was saved, a retry reuses that draft
+and archives the failed attempt's log. Invalid structured replies from the
+negotiating composer are saved and retried up to three times without consuming
+a negotiation turn.
+
+Add `--full-six-turns` to require all six alternating negotiation turns even
+when the composers agree earlier. Each composer speaks three times; independent
+drafts and final song generation are additional requests. Agreement must still
+hold at the end of turn six before the final song is exported.
 
 `NegotiatingComposerAgent` in [agent.py](agent.py) is **one agent** that composes
 melody, harmony, rhythm, form, and instrumentation
