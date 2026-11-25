@@ -1,0 +1,804 @@
+{
+  "title": "Warm Window Light",
+  "key": "C major",
+  "tempo": 76,
+  "melody_program": 0,
+  "harmony_program": 0,
+  "bars": [
+    {
+      "chord": "C",
+      "melody": [
+        {
+          "pitches": [
+            64
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            67
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            72
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            67
+          ],
+          "ticks": 4
+        }
+      ],
+      "harmony": [
+        {
+          "pitches": [
+            48,
+            55,
+            60,
+            64
+          ],
+          "ticks": 8
+        },
+        {
+          "pitches": [
+            48,
+            55,
+            60,
+            64
+          ],
+          "ticks": 8
+        }
+      ]
+    },
+    {
+      "chord": "Am",
+      "melody": [
+        {
+          "pitches": [
+            69
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            72
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            76
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            72
+          ],
+          "ticks": 4
+        }
+      ],
+      "harmony": [
+        {
+          "pitches": [
+            45,
+            52,
+            57,
+            60
+          ],
+          "ticks": 8
+        },
+        {
+          "pitches": [
+            45,
+            52,
+            57,
+            60
+          ],
+          "ticks": 8
+        }
+      ]
+    },
+    {
+      "chord": "F",
+      "melody": [
+        {
+          "pitches": [
+            69
+          ],
+          "ticks": 6
+        },
+        {
+          "pitches": [
+            67
+          ],
+          "ticks": 2
+        },
+        {
+          "pitches": [
+            65
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            69
+          ],
+          "ticks": 4
+        }
+      ],
+      "harmony": [
+        {
+          "pitches": [
+            41,
+            48,
+            53,
+            57,
+            60
+          ],
+          "ticks": 8
+        },
+        {
+          "pitches": [
+            41,
+            48,
+            53,
+            57,
+            60
+          ],
+          "ticks": 8
+        }
+      ]
+    },
+    {
+      "chord": "G7",
+      "melody": [
+        {
+          "pitches": [
+            71
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            74
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            72
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            67
+          ],
+          "ticks": 4
+        }
+      ],
+      "harmony": [
+        {
+          "pitches": [
+            43,
+            50,
+            53,
+            59,
+            62
+          ],
+          "ticks": 8
+        },
+        {
+          "pitches": [
+            43,
+            50,
+            53,
+            59,
+            62
+          ],
+          "ticks": 8
+        }
+      ]
+    },
+    {
+      "chord": "C",
+      "melody": [
+        {
+          "pitches": [
+            72
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            74
+          ],
+          "ticks": 2
+        },
+        {
+          "pitches": [
+            72
+          ],
+          "ticks": 2
+        },
+        {
+          "pitches": [
+            67
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            64
+          ],
+          "ticks": 4
+        }
+      ],
+      "harmony": [
+        {
+          "pitches": [
+            48,
+            55,
+            60,
+            64
+          ],
+          "ticks": 8
+        },
+        {
+          "pitches": [
+            48,
+            55,
+            60,
+            64
+          ],
+          "ticks": 8
+        }
+      ]
+    },
+    {
+      "chord": "Em7",
+      "melody": [
+        {
+          "pitches": [
+            64
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            67
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            71
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            67
+          ],
+          "ticks": 4
+        }
+      ],
+      "harmony": [
+        {
+          "pitches": [
+            40,
+            47,
+            52,
+            55,
+            59
+          ],
+          "ticks": 8
+        },
+        {
+          "pitches": [
+            40,
+            47,
+            52,
+            55,
+            59
+          ],
+          "ticks": 8
+        }
+      ]
+    },
+    {
+      "chord": "Am",
+      "melody": [
+        {
+          "pitches": [
+            69
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            72
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            76
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            74
+          ],
+          "ticks": 4
+        }
+      ],
+      "harmony": [
+        {
+          "pitches": [
+            45,
+            52,
+            57,
+            60
+          ],
+          "ticks": 8
+        },
+        {
+          "pitches": [
+            45,
+            52,
+            57,
+            60
+          ],
+          "ticks": 8
+        }
+      ]
+    },
+    {
+      "chord": "G7",
+      "melody": [
+        {
+          "pitches": [
+            71
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            69
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            67
+          ],
+          "ticks": 8
+        }
+      ],
+      "harmony": [
+        {
+          "pitches": [
+            43,
+            50,
+            53,
+            59,
+            62
+          ],
+          "ticks": 8
+        },
+        {
+          "pitches": [
+            43,
+            50,
+            53,
+            59,
+            62
+          ],
+          "ticks": 8
+        }
+      ]
+    },
+    {
+      "chord": "F",
+      "melody": [
+        {
+          "pitches": [
+            65
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            69
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            72
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            69
+          ],
+          "ticks": 4
+        }
+      ],
+      "harmony": [
+        {
+          "pitches": [
+            41,
+            48,
+            53,
+            57,
+            60
+          ],
+          "ticks": 8
+        },
+        {
+          "pitches": [
+            41,
+            48,
+            53,
+            57,
+            60
+          ],
+          "ticks": 8
+        }
+      ]
+    },
+    {
+      "chord": "C/E",
+      "melody": [
+        {
+          "pitches": [
+            64
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            67
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            72
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            74
+          ],
+          "ticks": 4
+        }
+      ],
+      "harmony": [
+        {
+          "pitches": [
+            40,
+            48,
+            55,
+            60,
+            64
+          ],
+          "ticks": 8
+        },
+        {
+          "pitches": [
+            40,
+            48,
+            55,
+            60,
+            64
+          ],
+          "ticks": 8
+        }
+      ]
+    },
+    {
+      "chord": "Dm7",
+      "melody": [
+        {
+          "pitches": [
+            69
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            65
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            62
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            65
+          ],
+          "ticks": 4
+        }
+      ],
+      "harmony": [
+        {
+          "pitches": [
+            38,
+            45,
+            50,
+            53,
+            57
+          ],
+          "ticks": 8
+        },
+        {
+          "pitches": [
+            38,
+            45,
+            50,
+            53,
+            57
+          ],
+          "ticks": 8
+        }
+      ]
+    },
+    {
+      "chord": "G7",
+      "melody": [
+        {
+          "pitches": [
+            67
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            71
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            74
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            71
+          ],
+          "ticks": 4
+        }
+      ],
+      "harmony": [
+        {
+          "pitches": [
+            43,
+            50,
+            53,
+            59,
+            62
+          ],
+          "ticks": 8
+        },
+        {
+          "pitches": [
+            43,
+            50,
+            53,
+            59,
+            62
+          ],
+          "ticks": 8
+        }
+      ]
+    },
+    {
+      "chord": "Am",
+      "melody": [
+        {
+          "pitches": [
+            72
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            76
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            74
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            72
+          ],
+          "ticks": 4
+        }
+      ],
+      "harmony": [
+        {
+          "pitches": [
+            45,
+            52,
+            57,
+            60
+          ],
+          "ticks": 8
+        },
+        {
+          "pitches": [
+            45,
+            52,
+            57,
+            60
+          ],
+          "ticks": 8
+        }
+      ]
+    },
+    {
+      "chord": "F",
+      "melody": [
+        {
+          "pitches": [
+            69
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            72
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            77
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            76
+          ],
+          "ticks": 4
+        }
+      ],
+      "harmony": [
+        {
+          "pitches": [
+            41,
+            48,
+            53,
+            57,
+            60
+          ],
+          "ticks": 8
+        },
+        {
+          "pitches": [
+            41,
+            48,
+            53,
+            57,
+            60
+          ],
+          "ticks": 8
+        }
+      ]
+    },
+    {
+      "chord": "G7",
+      "melody": [
+        {
+          "pitches": [
+            74
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            71
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            67
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            62
+          ],
+          "ticks": 4
+        }
+      ],
+      "harmony": [
+        {
+          "pitches": [
+            43,
+            50,
+            53,
+            59,
+            62
+          ],
+          "ticks": 8
+        },
+        {
+          "pitches": [
+            43,
+            50,
+            53,
+            59,
+            62
+          ],
+          "ticks": 8
+        }
+      ]
+    },
+    {
+      "chord": "C",
+      "melody": [
+        {
+          "pitches": [
+            72
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            67
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            64
+          ],
+          "ticks": 4
+        },
+        {
+          "pitches": [
+            60
+          ],
+          "ticks": 4
+        }
+      ],
+      "harmony": [
+        {
+          "pitches": [
+            48,
+            55,
+            60,
+            64
+          ],
+          "ticks": 16
+        }
+      ]
+    }
+  ]
+}
