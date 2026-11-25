@@ -10,17 +10,17 @@ from unittest.mock import patch
 
 import httpx
 
-from negotiating_composer import agent as negotiating_composer
-from negotiating_composer.composer_protocol import (
+from composer_b import agent as composer_b
+from composer_b.composer_protocol import (
     COMPOSER_RESPONSE_SCHEMA,
     chat_response_format,
     responses_text_format,
 )
-from negotiating_composer.agent import (
+from composer_b.agent import (
     InvalidComposerResponse,
     NegotiatingComposerAgent,
 )
-from negotiating_composer.tests.test_negotiating_composer import response_json
+from composer_b.tests.test_negotiating_composer import response_json
 
 
 class ComposerOutputFormatTests(unittest.TestCase):
@@ -184,10 +184,10 @@ class ComposerOutputFormatTests(unittest.TestCase):
                 raw = '{"unexpected": "Keep this exact model reply for diagnosis."}'
                 stderr = io.StringIO()
                 # Bypass environment loading entirely; all generation is mocked.
-                with patch.object(negotiating_composer, "build_llm_config", return_value=(False, "test-deployment")):
+                with patch.object(composer_b, "build_llm_config", return_value=(False, "test-deployment")):
                     with patch.object(NegotiatingComposerAgent, "generate_reply", return_value=raw) as generate:
                         with redirect_stderr(stderr), self.assertRaises(SystemExit) as caught:
-                            negotiating_composer.main([
+                            composer_b.main([
                                 "--prompt", "A jazz and blues piano song.",
                                 "--output-dir", str(output),
                             ])

@@ -15,6 +15,9 @@ import urllib.error
 import urllib.request
 import wave
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from composition_results import reserve_result
+
 
 def load_dotenv(paths=None):
     """Load supported settings without executing shell code or replacing exports."""
@@ -221,7 +224,7 @@ def abc_pitch(pitch):
 
 
 def to_abc(score):
-    lines = ['X:1', 'T:' + score['title'], 'C:ComposerSingle', 'M:4/4', 'L:1/16',
+    lines = ['X:1', 'T:' + score['title'], 'C:Composer A', 'M:4/4', 'L:1/16',
              f'Q:1/4={score["tempo"]}', '%%score (1 2)',
              'V:1 name="Melody" clef=treble', 'V:2 name="Harmony" clef=bass',
              'K:C', '% Sounding pitches are explicit; intended key: ' + score['key']]
@@ -319,7 +322,7 @@ def main(argv=None):
     except (ValueError, OSError) as exc:
         parser.exit(1, f'Error loading .env: {exc}\n')
     parser.add_argument('-p', '--prompt', required=True)
-    parser.add_argument('-o', '--output-dir', '--output_dir', required=True)
+    parser.add_argument('-o', '--output-dir', '--output_dir', help='Parent folder for automatically numbered A results')
     parser.add_argument('--bars', type=int, default=16, choices=range(1, 65), metavar='1-64')
     endpoint = os.environ.get('AZURE_OPENAI_ENDPOINT', os.environ.get('OPENAI_ENDPOINT', '')).strip()
     default_base = endpoint.rstrip('/') + '/openai/v1' if endpoint else os.environ.get('OPENAI_BASE_URL', 'https://api.openai.com/v1')
@@ -338,7 +341,7 @@ def main(argv=None):
                 raise ValueError('Set OPENAI_MODEL or AZURE_OPENAI_DEPLOYMENT to your enabled course deployment')
             api_key = os.environ.get('AZURE_OPENAI_API_KEY', os.environ.get('OPENAI_API_KEY'))
             score, messages = compose(args.prompt, args.bars, args.model, api_key, args.base_url, args.retries)
-        folder = export(score, args.output_dir, dict(prompt=args.prompt, mode='offline-demo' if args.demo else 'single-agent',
+        folder = export(score, reserve_result('A', args.output_dir), dict(prompt=args.prompt, mode='offline-demo' if args.demo else 'single-agent',
                         model=None if args.demo else args.model, messages=messages))
     except (ValueError, RuntimeError, OSError) as exc:
         parser.exit(1, f'Error: {exc}\n')

@@ -13,7 +13,7 @@ RUNTIME_ROOT = PROJECT_ROOT / ".composerx-audio"
 RUNTIME_PACKAGES = RUNTIME_ROOT / "packages"
 DEFAULT_SOUNDFONT = RUNTIME_ROOT / "TimGM6mb.sf2"
 SOUNDFONT_SHA256 = "c5378b62028c920cb11e4803327983fee2f2cdff5dc89c708e39da417e51c854"
-SETUP_COMMAND = "python -m negotiating_composer.setup_audio"
+SETUP_COMMAND = "python -m composer_b.setup_audio"
 
 
 def _setup_error(detail: str) -> RuntimeError:

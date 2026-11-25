@@ -10,10 +10,14 @@ from dataclasses import asdict, dataclass
 import json
 from pathlib import Path
 import re
+import sys
 from tempfile import TemporaryDirectory
 from typing import Literal, Optional, Sequence, Union
 
 import autogen
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from composition_results import reserve_result
 
 if __package__:
     from .composer_api import DEFAULT_MODEL, ResponsesModelClient, build_llm_config
@@ -193,7 +197,7 @@ class NegotiatingComposerAgent(autogen.AssistantAgent):
 
     def __init__(
         self,
-        name: str = "ComposerA",
+        name: str = "Composer B",
         *,
         preferences: Sequence[str] = (),
         peer_preferences: Sequence[str] = (),
@@ -353,8 +357,8 @@ class NegotiatingComposerAgent(autogen.AssistantAgent):
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser(description="Compose a full ABC song and WAV with one negotiating agent.")
     parser.add_argument("--prompt", "-p", required=True)
-    parser.add_argument("--output-dir", "-o", type=Path, required=True)
-    parser.add_argument("--name", default="ComposerA")
+    parser.add_argument("--output-dir", "-o", type=Path, help="Parent folder for automatically numbered B results")
+    parser.add_argument("--name", default="Composer B")
     parser.add_argument("--model", help="Deployment/model override (otherwise read from .env).")
     parser.add_argument("--preference", action="append", default=[], help="Repeat for each own preference.")
     parser.add_argument("--peer-preference", action="append", default=[], help="Repeat for each peer preference.")
@@ -367,6 +371,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             model=args.model,
         )
         result = agent.compose(args.prompt)
+        args.output_dir = reserve_result('B', args.output_dir)
         args.output_dir.mkdir(parents=True, exist_ok=True)
         record = {
             "agent": args.name, "model": agent.model, "prompt": args.prompt,
@@ -391,9 +396,9 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             for artifact in staging.iterdir():
                 artifact.replace(args.output_dir / artifact.name)
     except InvalidComposerResponse as error:
-        diagnostic = args.output_dir / "failed_response.txt"
+        diagnostic = (args.output_dir if args.output_dir is not None else reserve_result("B")) / "failed_response.txt"
         try:
-            args.output_dir.mkdir(parents=True, exist_ok=True)
+            diagnostic.parent.mkdir(parents=True, exist_ok=True)
             diagnostic.write_text(error.raw_response, encoding="utf-8")
         except OSError:
             parser.exit(1, f"Composition failed: {error}\nCould not save the invalid model reply.\n")

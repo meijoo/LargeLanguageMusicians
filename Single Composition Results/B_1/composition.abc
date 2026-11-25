@@ -1,0 +1,20 @@
+X:1
+T:Blue Lantern Stroll
+M:4/4
+L:1/8
+Q:1/4=96
+K:C
+V:1 name="Melody"
+%%MIDI program 0
+V:2 name="Piano Accompaniment"
+%%MIDI program 0
+V:1
+"C7"C E G A G E D C | "F7"F A c d c A G F | "C7"C E G A G E D C | "C7"E G A c B A G E |
+"F7"F A c d c A G F | "F#dim"^F A c ^d c A ^F E | "C7"E G c B A G E D | "A7"^c E A c B A E ^c |
+"Dm7"D F A c A F E D | "G7"G B d e d B A G | "C7"E G c B A G E C | "G7"D F A c B A G F |
+"A7"E G c e d c A G | "Dm7"F A c B A G F D | "G7"E G c B A G E D | "C6"C2 E2 G2 c2
+V:2
+"C7"C E G _B E G _B E | "F7"F A c _e A c _e A | "C7"C E G _B E G _B E | "C7"C E G _B G E C E |
+"F7"F A c _e A c _e A | "F#dim"^F A c _e A c _e A | "C7"C E G _B E G C E | "A7"A ^c e g ^c e g ^c |
+"Dm7"D F A c F A c F | "G7"G B d f B d f G | "C7"C E G _B E G _B E | "G7"G B d f B d f G |
+"A7"A ^c e g ^c e g ^c | "Dm7"D F A c F A c F | "G7"G B d f B d f G | "C6"C E G A c A G E

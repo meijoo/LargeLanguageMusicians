@@ -5,9 +5,9 @@ from tempfile import TemporaryDirectory
 import unittest
 from unittest.mock import Mock, patch
 
-from ComposerSingle import composer
-from negotiating_composer.agent import ComposerResponse
-from negotiating_composer.negotiate import run
+from composer_a import composer
+from composer_b.agent import ComposerResponse
+from composer_b.negotiate import run
 
 
 class ControllerTests(unittest.TestCase):
@@ -25,11 +25,11 @@ class ControllerTests(unittest.TestCase):
         wrapper = json.dumps(dict(message='My response.', plan=plan, score=score, accepts_peer_plan=accepts))
         with TemporaryDirectory() as directory, patch.dict(os.environ, {
             'OPENAI_API_KEY': 'test-secret', 'OPENAI_MODEL': 'test-model'}, clear=True), \
-                patch('negotiating_composer.negotiate.single.load_dotenv'), \
-                patch('negotiating_composer.negotiate.NegotiatingComposerAgent', return_value=peer), \
-                patch('negotiating_composer.negotiate.single.compose', return_value=(score, [{'role': 'system', 'content': composer.SYSTEM_PROMPT}])), \
-                patch('negotiating_composer.negotiate.single.request_completion', return_value=wrapper), \
-                patch('negotiating_composer.negotiate.single.export') as export:
+                patch('composer_b.negotiate.single.load_dotenv'), \
+                patch('composer_b.negotiate.NegotiatingComposerAgent', return_value=peer), \
+                patch('composer_b.negotiate.single.compose', return_value=(score, [{'role': 'system', 'content': composer.SYSTEM_PROMPT}])), \
+                patch('composer_b.negotiate.single.request_completion', return_value=wrapper), \
+                patch('composer_b.negotiate.single.export') as export:
             destination = Path(directory)
             if accepts and not different_plan and not withdraw_at_end:
                 run('jazz blues piano', destination, full_six_turns=full_six_turns)
@@ -57,7 +57,7 @@ class ControllerTests(unittest.TestCase):
         self.assertEqual(result['status'], 'complete')
         turns = [entry for entry in result['exchanges'] if entry['phase'].startswith('turn ')]
         self.assertEqual([entry['phase'] for entry in turns], [f'turn {n}' for n in range(1, 7)])
-        self.assertEqual([entry['speaker'] for entry in turns], ['ComposerSingle', 'NegotiatingComposer'] * 3)
+        self.assertEqual([entry['speaker'] for entry in turns], ['Composer A', 'Composer B'] * 3)
 
     def test_acceptance_flags_with_different_plans_are_not_agreement(self):
         result = self.exercise(True, different_plan=True)

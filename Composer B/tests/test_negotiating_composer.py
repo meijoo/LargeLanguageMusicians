@@ -1,7 +1,7 @@
 """Offline tests for the full-song composer and its peer-message protocol.
 
 Run from the repository root with:
-    python -m unittest discover -s negotiating_composer/tests -v
+    python -m unittest discover -s Composer B/tests -v
 
 AutoGen must be installed, but all model calls are mocked.
 """
@@ -14,7 +14,7 @@ from unittest.mock import patch
 import autogen
 import httpx
 
-from negotiating_composer.agent import (
+from composer_b.agent import (
     DEFAULT_MODEL,
     MAX_NEGOTIATION_TURNS,
     SYSTEM_MESSAGE,

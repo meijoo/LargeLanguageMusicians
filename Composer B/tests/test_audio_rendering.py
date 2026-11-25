@@ -11,9 +11,9 @@ import wave
 
 import numpy as np
 
-from negotiating_composer import agent as negotiating_composer, render_audio
-from negotiating_composer.agent import NegotiatingComposerAgent
-from negotiating_composer.tests.test_negotiating_composer import response_json
+from composer_b import agent as composer_b, render_audio
+from composer_b.agent import NegotiatingComposerAgent
+from composer_b.tests.test_negotiating_composer import response_json
 
 
 SHORT_ABC = """X:1
@@ -215,14 +215,15 @@ class AutomaticAudioCliTests(unittest.TestCase):
         with TemporaryDirectory(prefix="composer-cli-wav-") as directory:
             output = Path(directory) / "result"
             stdout = io.StringIO()
-            with patch.object(negotiating_composer, "check_audio_ready") as ready:
-                with patch.object(negotiating_composer, "build_llm_config", return_value=(False, "offline-model")):
+            with patch.object(composer_b, "check_audio_ready") as ready:
+                with patch.object(composer_b, "build_llm_config", return_value=(False, "offline-model")):
                     with patch.object(NegotiatingComposerAgent, "generate_reply", return_value=response_json()) as generate:
-                        with patch.object(negotiating_composer, "render_abc_to_wav", side_effect=self.fake_render) as render:
+                        with patch.object(composer_b, "render_abc_to_wav", side_effect=self.fake_render) as render:
                             with redirect_stdout(stdout):
-                                status = negotiating_composer.main([
+                                status = composer_b.main([
                                     "--prompt", "A hopeful piano song.", "--output-dir", str(output),
                                 ])
+            output = output / "B_1"
             self.assertEqual(status, 0)
             ready.assert_called_once()
             generate.assert_called_once()
@@ -246,29 +247,29 @@ class AutomaticAudioCliTests(unittest.TestCase):
             for name, data in previous.items():
                 (output / name).write_bytes(data)
             stdout, stderr = io.StringIO(), io.StringIO()
-            with patch.object(negotiating_composer, "check_audio_ready"):
-                with patch.object(negotiating_composer, "build_llm_config", return_value=(False, "offline-model")):
+            with patch.object(composer_b, "check_audio_ready"):
+                with patch.object(composer_b, "build_llm_config", return_value=(False, "offline-model")):
                     with patch.object(NegotiatingComposerAgent, "generate_reply", return_value=response_json()) as generate:
-                        with patch.object(negotiating_composer, "render_abc_to_wav", side_effect=RuntimeError("offline render failed")):
+                        with patch.object(composer_b, "render_abc_to_wav", side_effect=RuntimeError("offline render failed")):
                             with redirect_stdout(stdout), redirect_stderr(stderr), self.assertRaises(SystemExit) as caught:
-                                negotiating_composer.main([
+                                composer_b.main([
                                     "--prompt", "A replacement piano song.", "--output-dir", str(output),
                                 ])
             self.assertEqual(caught.exception.code, 1)
             generate.assert_called_once()
             for name, data in previous.items():
                 self.assertEqual((output / name).read_bytes(), data, name)
-            self.assertIn("X:1", (output / "failed_render.abc").read_text())
+            self.assertIn("X:1", (output / "B_1" / "failed_render.abc").read_text())
             self.assertNotIn("Saved ", stdout.getvalue())
             self.assertIn("render", stderr.getvalue().lower())
 
     def test_missing_audio_runtime_fails_before_requesting_music(self):
         with TemporaryDirectory(prefix="composer-no-audio-") as directory:
             stderr = io.StringIO()
-            with patch.object(negotiating_composer, "check_audio_ready", side_effect=RuntimeError("Run setup_audio first")):
+            with patch.object(composer_b, "check_audio_ready", side_effect=RuntimeError("Run setup_audio first")):
                 with patch.object(NegotiatingComposerAgent, "generate_reply") as generate:
                     with redirect_stderr(stderr), self.assertRaises(SystemExit) as caught:
-                        negotiating_composer.main([
+                        composer_b.main([
                             "--prompt", "A piano song.", "--output-dir", directory,
                         ])
             self.assertEqual(caught.exception.code, 1)

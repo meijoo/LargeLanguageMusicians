@@ -231,7 +231,7 @@ class ComposerTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             result = subprocess.run([sys.executable, str(script), '-p', 'piano', '-o', 'output', '--bars', '2', '--demo'], cwd=tmp, capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertEqual(len(list((Path(tmp) / 'output').iterdir())), 5)
+            self.assertEqual(len(list((Path(tmp) / 'output' / 'A_1').iterdir())), 5)
 
     def test_missing_key_fails_clearly(self):
         with self.assertRaisesRegex(ValueError, 'OPENAI_API_KEY'):

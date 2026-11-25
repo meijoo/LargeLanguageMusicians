@@ -1,0 +1,21 @@
+{
+  "renderer": "TinySoundFont 0.3.7",
+  "abc_converter": "music21 9.3.0",
+  "soundfont": "Florestan piano (public domain, Nando Florestan)",
+  "soundfont_source": "https://github.com/amberwhitehead/tinysoundfont-pybind/blob/main/test/florestan-piano.sf2",
+  "soundfont_sha256": "f4f69027c04e8f1e0b87ee7ffad254d133ca8e07740844ea14307821a1dbb221",
+  "source_abc_sha256": "c910c085370d7b4be292ffa566dbb4a8c6223b97e9d146afbbc4a09c8c2edbc2",
+  "sample_rate": 44100,
+  "channels": 2,
+  "pcm_bits": 16,
+  "gain_db": -6,
+  "duration_seconds": 42.0,
+  "peak_amplitude": 0.3238465487957001,
+  "rms_amplitude": 0.055073598651066466,
+  "sounding_notes": 252,
+  "voice_note_counts": [
+    124,
+    128
+  ],
+  "chord_labels": "Annotations only; no additional auto-generated accompaniment."
+}

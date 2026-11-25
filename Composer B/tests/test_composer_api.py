@@ -9,13 +9,13 @@ from unittest.mock import patch
 
 import httpx
 
-from negotiating_composer.composer_api import DEFAULT_MODEL, build_llm_config
-from negotiating_composer.agent import (
+from composer_b.composer_api import DEFAULT_MODEL, build_llm_config
+from composer_b.agent import (
     ComposerResponse,
     NegotiatingComposerAgent,
     SYSTEM_MESSAGE,
 )
-from negotiating_composer.tests.test_negotiating_composer import response_json
+from composer_b.tests.test_negotiating_composer import response_json
 
 
 class ComposerConfigurationTests(unittest.TestCase):

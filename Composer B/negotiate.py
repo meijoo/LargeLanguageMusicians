@@ -1,10 +1,11 @@
-"""Run ComposerSingle and NegotiatingComposerAgent as two complete composers."""
+"""Run Composer A and Composer B as two complete composers negotiating a song."""
 import argparse
 import json
 import os
 from pathlib import Path
 
-from ComposerSingle import composer as single
+from composer_a import composer as single
+from composition_results import reserve_result
 from .agent import ComposerResponse, InvalidComposerResponse, NegotiatingComposerAgent
 
 
@@ -15,7 +16,7 @@ def run(prompt, output, full_six_turns=False):
         prior = json.loads((output / 'negotiation.json').read_text())
         reuse_initial = (prior.get('status') == 'failed' and prior.get('prompt') == prompt
                          and [entry['phase'] for entry in prior.get('exchanges', [])] == ['independent draft']
-                         and prior['exchanges'][0]['speaker'] == 'ComposerSingle')
+                         and prior['exchanges'][0]['speaker'] == 'Composer A')
         if prior.get('status') != 'failed' or (prior.get('exchanges') and not reuse_initial):
             raise ValueError('Choose a new output directory to preserve the existing negotiation.')
         archive = output / 'failed_attempts'
@@ -82,20 +83,20 @@ def run(prompt, output, full_six_turns=False):
 
     save()
     try:
-        peer = NegotiatingComposerAgent(name='NegotiatingComposer')
+        peer = NegotiatingComposerAgent(name='Composer B')
         if reuse_initial:
             score = single.validate_score(json.loads((output / 'initial_single' / 'composition.json').read_text()), 16)
             history = json.loads((output / 'initial_single' / 'run.json').read_text())['messages']
         else:
             score, history = single.compose(prompt, model=model, api_key=key, base_url=base)
-        initial = ComposerResponse('Independent ComposerSingle draft; proposed musical details are in the complete score.',
+        initial = ComposerResponse('Independent Composer A draft; proposed musical details are in the complete score.',
                                    (f'Use the complete 16-bar piano draft at {score["tempo"]} BPM in {score["key"]}; refine details with the peer.',),
                                    single.to_abc(score), False)
         single.export(score, output / 'initial_single', dict(prompt=prompt, model=model, messages=history))
-        record('ComposerSingle', 'independent draft', initial)
+        record('Composer A', 'independent draft', initial)
         latest = peer_request(peer.compose, prompt)
         (output / 'negotiating_history.json').write_text(json.dumps(peer.history, indent=2) + '\n')
-        record('NegotiatingComposer', 'independent draft', latest)
+        record('Composer B', 'independent draft', latest)
         negotiation_format = (
             'You are now negotiating with another complete composer. For this phase, replace the top-level output format above. '
             'Keep your original score schema inside a new JSON wrapper: '
@@ -115,13 +116,13 @@ def run(prompt, output, full_six_turns=False):
             previous = latest
             if turn % 2:
                 latest, score = single_reply(f'Global turn {turn}/6. Shared prompt: {prompt}. Peer proposal:\n' + previous.to_json())
-                speaker = 'ComposerSingle'
+                speaker = 'Composer A'
             else:
                 latest = peer_request(peer.respond, previous.to_json() + '\n\nWhen accepting this exact plan, copy its plan list verbatim. '
                                       'The session continues through turn 6 when requested; use remaining turns to check '
                                       'playability, harmony, rhythm, and implementation. Preserve an accepted plan unless '
                                       'a concrete problem requires a counterproposal. Never invent consent.', turn=turn)
-                speaker = 'NegotiatingComposer'
+                speaker = 'Composer B'
                 (output / 'negotiating_history.json').write_text(json.dumps(peer.history, indent=2) + '\n')
             record(speaker, f'turn {turn}', latest)
             agreed = (latest.plan if latest.accepts_peer_plan and previous.accepts_peer_plan
@@ -137,7 +138,7 @@ def run(prompt, output, full_six_turns=False):
         save()
         final, score = single_reply('Finalize the shared song. Implement every item in this mutually accepted plan; '
                                    'describe its implementation by bar. Do not renegotiate.\n' + json.dumps(agreed))
-        record('ComposerSingle', 'final song', final)
+        record('Composer A', 'final song', final)
         single.export(score, output, dict(prompt=prompt, model=model, mode='two-composer-negotiation',
                                          agreed_plan=agreed, messages=history))
         log['status'] = 'complete'
@@ -156,11 +157,11 @@ def run(prompt, output, full_six_turns=False):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('-p', '--prompt', default='write a jazz and blues inspired piano song')
-    parser.add_argument('-o', '--output-dir', type=Path, default=Path('negotiated song'))
+    parser.add_argument('-o', '--output-dir', type=Path, help='Parent folder for automatically numbered AB results')
     parser.add_argument('--full-six-turns', action='store_true',
                         help='Continue all six global turns even if agreement is reached earlier.')
     args = parser.parse_args()
-    run(args.prompt, args.output_dir, full_six_turns=args.full_six_turns)
+    run(args.prompt, reserve_result('AB', args.output_dir), full_six_turns=args.full_six_turns)
 
 
 if __name__ == '__main__':
