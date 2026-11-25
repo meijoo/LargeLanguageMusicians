@@ -11,7 +11,7 @@ from negotiating_composer.negotiate import run
 
 
 class ControllerTests(unittest.TestCase):
-    def exercise(self, accepts, different_plan=False):
+    def exercise(self, accepts, different_plan=False, full_six_turns=False, withdraw_at_end=False):
         score = composer.demo_score(16)
         plan = ('Use a 16-bar piano blues with a final tonic cadence.',)
         response = ComposerResponse('Peer proposal.', plan, composer.to_abc(score), accepts)
@@ -19,6 +19,9 @@ class ControllerTests(unittest.TestCase):
         peer.compose.return_value = ComposerResponse('Initial proposal.', plan, response.abc, False)
         peer.respond.return_value = (ComposerResponse('Changed plan.', ('Use a different harmony.',), response.abc, True)
                                       if different_plan else response)
+        if withdraw_at_end:
+            peer.respond.side_effect = [response, response, ComposerResponse(
+                'I withdraw acceptance.', plan, response.abc, False)]
         wrapper = json.dumps(dict(message='My response.', plan=plan, score=score, accepts_peer_plan=accepts))
         with TemporaryDirectory() as directory, patch.dict(os.environ, {
             'OPENAI_API_KEY': 'test-secret', 'OPENAI_MODEL': 'test-model'}, clear=True), \
@@ -28,12 +31,12 @@ class ControllerTests(unittest.TestCase):
                 patch('negotiating_composer.negotiate.single.request_completion', return_value=wrapper), \
                 patch('negotiating_composer.negotiate.single.export') as export:
             destination = Path(directory)
-            if accepts and not different_plan:
-                run('jazz blues piano', destination)
+            if accepts and not different_plan and not withdraw_at_end:
+                run('jazz blues piano', destination, full_six_turns=full_six_turns)
                 self.assertEqual(export.call_count, 2)
             else:
                 with self.assertRaises(RuntimeError):
-                    run('jazz blues piano', destination)
+                    run('jazz blues piano', destination, full_six_turns=full_six_turns)
                 self.assertEqual(export.call_count, 1)
             raw = (destination / 'negotiation.json').read_text()
             self.assertNotIn('test-secret', raw)
@@ -49,8 +52,20 @@ class ControllerTests(unittest.TestCase):
         self.assertEqual(result['status'], 'failed')
         self.assertEqual(len(result['exchanges']), 8)
 
+    def test_full_six_turns_continues_after_early_agreement(self):
+        result = self.exercise(True, full_six_turns=True)
+        self.assertEqual(result['status'], 'complete')
+        turns = [entry for entry in result['exchanges'] if entry['phase'].startswith('turn ')]
+        self.assertEqual([entry['phase'] for entry in turns], [f'turn {n}' for n in range(1, 7)])
+        self.assertEqual([entry['speaker'] for entry in turns], ['ComposerSingle', 'NegotiatingComposer'] * 3)
+
     def test_acceptance_flags_with_different_plans_are_not_agreement(self):
         result = self.exercise(True, different_plan=True)
+        self.assertEqual(result['status'], 'failed')
+        self.assertNotIn('agreed_plan', result)
+
+    def test_withdrawal_at_turn_six_clears_earlier_agreement(self):
+        result = self.exercise(True, full_six_turns=True, withdraw_at_end=True)
         self.assertEqual(result['status'], 'failed')
         self.assertNotIn('agreed_plan', result)
 
