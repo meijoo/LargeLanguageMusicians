@@ -1,5 +1,29 @@
 # Negotiating Composer
 
+To negotiate a song with the existing `ComposerSingle` agent, run from the
+repository root in the composer environment:
+
+```bash
+python -m negotiating_composer.negotiate \
+  --prompt "write a jazz and blues inspired piano song" \
+  --output-dir "negotiated song"
+```
+
+The controller obtains independent drafts, then alternates up to six global
+negotiation turns. It requires two consecutive acceptances of the identical
+plan before asking ComposerSingle to implement the final song. It preserves
+each composer's existing composition format and converts ComposerSingle's
+validated score to ABC for peer review. The controller itself makes no musical
+decisions and does not claim agreement when the agents disagree.
+
+The output folder contains `negotiation.md`, full structured exchanges in
+`negotiation.json`, each composer's conversation history, the initial
+ComposerSingle draft, and the final `composition.json`, `.abc`, `.mid`, and
+`.wav`. Audio uses ComposerSingle's built-in synthesizer. Logs are checkpointed
+after every successful exchange; API failures leave partial logs rather than a
+fabricated song. Use a fresh folder for another run after any exchanges have
+been recorded. Failed attempts with no exchanges can be retried in place.
+
 `NegotiatingComposerAgent` in [agent.py](agent.py) is **one agent** that composes
 melody, harmony, rhythm, form, and instrumentation
 together. It extends the AutoGen `AssistantAgent` used by ComposerX and does not

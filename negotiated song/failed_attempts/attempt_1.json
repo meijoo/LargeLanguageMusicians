@@ -1,0 +1,7 @@
+{
+  "prompt": "write a jazz and blues inspired piano song",
+  "model": "gpt-6-luna",
+  "status": "failed",
+  "exchanges": [],
+  "failure_type": "RuntimeError"
+}
