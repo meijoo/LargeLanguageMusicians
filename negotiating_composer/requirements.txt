@@ -1,0 +1,5 @@
+# Install in a separate environment from the original OpenAI 0.28 scripts.
+pyautogen==0.2.35
+openai>=1.109.1,<2
+python-dotenv>=1,<2
+music21==9.3.0
